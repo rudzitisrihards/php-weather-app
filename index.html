@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Weather App</h1>
+        <div class="form-container">
+          <input type="text" id="location" placeholder="Enter location">
+          <button onclick="getWeather()">Get Weather</button>
+        </div>
+        <div id="weatherInfo"></div>
+      </div>
+
+  <script>
+    function getWeather() {
+      var location = document.getElementById('location').value;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'weather.php?location=' + location, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            var weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.innerHTML = xhr.responseText; // Display weather data
+          } else {
+            alert('Error: ' + xhr.status);
+          }
+        }
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
